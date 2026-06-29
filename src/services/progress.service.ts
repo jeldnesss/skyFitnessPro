@@ -1,7 +1,12 @@
 import { api } from "@/lib/api";
+import { Progress, WorkoutProgress } from "@/types/progress";
 
-export const getCourseProgress = async (courseId: string) => {
-  const { data } = await api.get(`/users/me/progress?courseId=${courseId}`);
+export const getCourseProgress = async (
+  courseId: string,
+): Promise<Progress> => {
+  const { data } = await api.get<Progress>(
+    `/users/me/progress?courseId=${courseId}`,
+  );
 
   return data;
 };
@@ -9,8 +14,8 @@ export const getCourseProgress = async (courseId: string) => {
 export const getWorkoutProgress = async (
   courseId: string,
   workoutId: string,
-) => {
-  const { data } = await api.get(
+): Promise<WorkoutProgress> => {
+  const { data } = await api.get<WorkoutProgress>(
     `/users/me/progress?courseId=${courseId}&workoutId=${workoutId}`,
   );
 
