@@ -1,24 +1,9 @@
 import { api } from "@/lib/api";
+import { ApiMessage } from "@/types/api";
+import { Workout } from "@/types/workouts";
 
-export const getWorkoutById = async (workoutId: string) => {
-  const { data } = await api.get(`/workouts/${workoutId}`);
-  return data;
-};
-
-export const getCourseProgress = async (courseId: string) => {
-  const { data } = await api.get(`/users/me/progress?courseId=${courseId}`);
-
-  return data;
-};
-
-export const getWorkoutProgress = async (
-  courseId: string,
-  workoutId: string,
-) => {
-  const { data } = await api.get(
-    `/users/me/progress?courseId=${courseId}&workoutId=${workoutId}`,
-  );
-
+export const getWorkoutById = async (workoutId: string): Promise<Workout> => {
+  const { data } = await api.get<Workout>(`/workouts/${workoutId}`);
   return data;
 };
 
@@ -26,8 +11,8 @@ export const saveWorkoutProgress = async (
   courseId: string,
   workoutId: string,
   progressData: number[],
-) => {
-  const { data } = await api.patch(
+): Promise<ApiMessage> => {
+  const { data } = await api.patch<ApiMessage>(
     `/courses/${courseId}/workouts/${workoutId}`,
     {
       progressData,
@@ -40,8 +25,8 @@ export const saveWorkoutProgress = async (
 export const resetWorkoutProgress = async (
   courseId: string,
   workoutId: string,
-) => {
-  const { data } = await api.patch(
+): Promise<ApiMessage> => {
+  const { data } = await api.patch<ApiMessage>(
     `/courses/${courseId}/workouts/${workoutId}/reset`,
   );
 
