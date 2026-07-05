@@ -1,8 +1,8 @@
 import axios from "axios";
 export const api = axios.create({
-  baseURL: "/api/fitness",
+  baseURL: "https://wedev-api.sky.pro/api/fitness",
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "",
   },
 });
 
@@ -21,10 +21,6 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message = error?.response?.data?.message || "Ошибка сервера";
-
-    console.error("API Error:", message);
-
     return Promise.reject(error);
   },
 );

@@ -1,0 +1,93 @@
+.cards_block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.card {
+  border-radius: 30px;
+  padding: 0px 0px 15px;
+  width: 360px;
+
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background-color: #fff;
+  position: relative;
+}
+.image {
+  border-radius: 30px;
+}
+.desc_card {
+  padding: 24px 30px 15px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 110%;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.block {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.information {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+}
+.icon_text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 110%;
+  color: #202020;
+}
+.more {
+  z-index: 100;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.progress {
+  margin-top: 20px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #00C1FF;
+  transition: width 0.3s;
+}
+
+.progressText {
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.continueBtn {
+  border-radius: 46px;
+  padding: 16px 26px;
+  width: 100%;
+  height: 52px;
+  background-color: #bcec30;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+  margin-top: 40px;
+}

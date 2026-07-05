@@ -1,0 +1,84 @@
+.video {
+  width: 100%;
+  height: 639px;
+  margin-bottom: 40px;
+}
+
+.courseTitle {
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 100%;
+  color: #000;
+  margin-bottom: 40px;
+}
+.exercises_block {
+  margin-top: 48px;
+  border-radius: 30px;
+  padding: 40px;
+  width: 100%;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: #fff;
+}
+
+.exercises h2 {
+  margin-bottom: 32px;
+
+  font-size: 40px;
+  font-weight: 500;
+  color: #000;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px 20px;
+
+  margin-bottom: 40px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.exerciseName {
+  font-size: 20px;
+  font-weight: 400;
+  color: #000;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.percent {
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+
+  flex-shrink: 0;
+}
+
+.button {
+  border-radius: 46px;
+  padding: 16px 26px;
+  width: 320px;
+  height: 52px;
+  background: #bcec30;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.empty {
+  font-size: 18px;
+  color: #777;
+}

@@ -1,0 +1,60 @@
+.main {
+  padding: 40px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 110%;
+  color: #000;
+  margin-bottom: 40px;
+}
+
+.userInfo {
+  border-radius: 30px;
+  padding: 30px;
+  width: 1160px;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: #fff;
+  display: flex;
+  align-items: start;
+  gap: 33px;
+  margin-bottom: 60px;
+}
+.profileName {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 110%;
+  color: #000;
+  margin-bottom: 30px;
+}
+.email {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+  margin-bottom: 44px;
+}
+.profileButton {
+  border: 1px solid #000;
+  border-radius: 46px;
+  padding: 16px 26px;
+  width: 192px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+}
+
+.courses {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}

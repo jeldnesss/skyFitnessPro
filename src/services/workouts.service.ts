@@ -1,6 +1,17 @@
 import { api } from "@/lib/api";
 import { ApiMessage } from "@/types/api";
 import { Workout } from "@/types/workouts";
+export type WorkoutProgress = {
+  workoutId: string;
+  workoutCompleted: boolean;
+  progressData: number[];
+};
+export const getCourseWorkouts = async (
+  courseId: string,
+): Promise<Workout[]> => {
+  const { data } = await api.get<Workout[]>(`/courses/${courseId}/workouts`);
+  return data;
+};
 
 export const getWorkoutById = async (workoutId: string): Promise<Workout> => {
   const { data } = await api.get<Workout>(`/workouts/${workoutId}`);
@@ -28,6 +39,16 @@ export const resetWorkoutProgress = async (
 ): Promise<ApiMessage> => {
   const { data } = await api.patch<ApiMessage>(
     `/courses/${courseId}/workouts/${workoutId}/reset`,
+  );
+
+  return data;
+};
+export const getWorkoutProgress = async (
+  courseId: string,
+  workoutId: string,
+): Promise<WorkoutProgress> => {
+  const { data } = await api.get<WorkoutProgress>(
+    `/users/me/progress?courseId=${courseId}&workoutId=${workoutId}`,
   );
 
   return data;

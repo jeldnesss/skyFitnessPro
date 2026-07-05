@@ -1,0 +1,145 @@
+.banner {
+  background-image: url(/yoga.jpg);
+  height: 310px;
+  width: 100%;
+  border-radius: 30px;
+  padding: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 60px;
+}
+.title {
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 110%;
+  color: #fff;
+}
+.block_text {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 110%;
+  color: #000;
+  margin-bottom: 40px;
+}
+.suit {
+  margin-bottom: 60px;
+}
+.fitting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.fittingCard {
+  border-radius: 28px;
+  padding: 20px;
+  width: 368px;
+  height: 141px;
+  background: linear-gradient(152deg, #151720 0%, #1e212e 100%);
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+.fitting_index {
+  font-weight: 500;
+  font-size: 75px;
+  line-height: 135%;
+  color: #bcec30;
+}
+.fitting_name {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 110%;
+  color: #fff;
+}
+.direction_block {
+  border-radius: 28px;
+  padding: 30px;
+  width: 100%;
+  height: 146px;
+  background-color: #bcec30;
+  padding: 30px;
+}
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px 124px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.direction_name {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 110%;
+  color: #000;
+}
+.directions {
+  margin-bottom: 102px;
+}
+.add {
+  height: 486px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 40px;
+  position: relative;
+}
+
+.add_desc {
+  max-width: 437px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: start;
+}
+.add_title {
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 100%;
+  color: #000;
+}
+.add_list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+.add_list_item {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 110%;
+  color: #000;
+  opacity: 0.6;
+}
+.button {
+  border-radius: 46px;
+  padding: 16px 26px;
+  width: 100%;
+  height: 52px;
+  background-color: #bcec30;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+}
+.add_mask {
+    height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.draw {
+  position: absolute;
+  transform: rotate(-2deg);
+  right: 0;
+  bottom: -60px;
+}
+.man {
+  position: absolute;
+  transform: rotate(3deg);
+  right: 30px;
+  bottom: 20px;
+}
