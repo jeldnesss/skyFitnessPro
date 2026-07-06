@@ -75,9 +75,11 @@
 
 .name {
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 110%;
   color: #000;
+  display: inline-block;
+  max-width: 320px;
 
 }
 

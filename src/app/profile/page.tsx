@@ -10,6 +10,7 @@ import CourseCard from "@/components/CourseCard/CourseCard";
 import { removeCourse } from "@/utils/course";
 
 import Image from "next/image";
+import { getCourseWorkouts } from "@/services/workouts.service";
 const courseImages = [
   "/image 5.jpg",
   "/image 6.jpg",
@@ -42,6 +43,7 @@ type Workout = {
 };
 type CourseWithProgress = CourseDetails & {
   progress: WorkoutProgress[];
+  workoutsCount: number;
 };
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -58,6 +60,7 @@ export default function ProfilePage() {
         const coursesData = await Promise.all(
           userData.selectedCourses.map(async (id: string) => {
             const course = await getCourseById(id);
+            const workouts = await getCourseWorkouts(id);
             const courseProgress = userData.courseProgress.find(
               (p) => p.courseId === id,
             );
@@ -65,6 +68,7 @@ export default function ProfilePage() {
             return {
               ...course,
               progress: courseProgress?.workoutsProgress ?? [],
+              workoutsCount: workouts.length,
             };
           }),
         );
@@ -83,12 +87,15 @@ export default function ProfilePage() {
 
     setCourses((prev) => prev.filter((course) => course._id !== id));
   };
-  const calculateCourseProgress = (progress: WorkoutProgress[]) => {
-    if (!progress.length) return 0;
+  const calculateCourseProgress = (
+    progress: WorkoutProgress[],
+    workoutsCount: number,
+  ) => {
+    if (!workoutsCount) return 0;
 
     const done = progress.filter((w) => w.workoutCompleted).length;
 
-    return Math.round((done / progress.length) * 100);
+    return Math.round((done / workoutsCount) * 100);
   };
   if (loading) return <p>Загрузка...</p>;
 
@@ -126,7 +133,10 @@ export default function ProfilePage() {
               course={course}
               image={courseImages[index % courseImages.length]}
               variant="profile"
-              progress={calculateCourseProgress(course.progress)}
+              progress={calculateCourseProgress(
+                course.progress,
+                course.workoutsCount,
+              )}
               workoutsProgress={course.progress}
               onRemove={handleRemoveCourse}
             />

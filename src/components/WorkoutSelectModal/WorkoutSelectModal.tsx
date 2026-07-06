@@ -40,24 +40,26 @@ export default function WorkoutSelectModal({
           <p>Нет тренировок</p>
         ) : (
           <div className={styles.list}>
-            {workouts.map((workout) => {
-              const completed = completedWorkouts.some(
-                (item) =>
-                  item.workoutId === workout._id && item.workoutCompleted,
-              );
+            {[...workouts]
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((workout) => {
+                const completed = completedWorkouts.some(
+                  (item) =>
+                    item.workoutId === workout._id && item.workoutCompleted,
+                );
 
-              return (
-                <div
-                  key={workout._id}
-                  className={styles.item}
-                  onClick={() => onSelect(workout._id)}
-                >
-                  {completed && <div className={styles.check}></div>}
-                  {!completed && <div className={styles.notCheck}></div>}
-                  <span className={styles.name}>{workout.name}</span>
-                </div>
-              );
-            })}
+                return (
+                  <div
+                    key={workout._id}
+                    className={styles.item}
+                    onClick={() => onSelect(workout._id)}
+                  >
+                    {completed && <div className={styles.check}></div>}
+                    {!completed && <div className={styles.notCheck}></div>}
+                    <span className={styles.name}>{workout.name}</span>
+                  </div>
+                );
+              })}
           </div>
         )}
 
