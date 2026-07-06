@@ -1,8 +1,6 @@
 "use client";
-
-import { useState } from "react";
 import styles from "./WorkoutSelectModal.module.css";
-
+import { WorkoutProgress } from "@/types/course";
 export type Workout = {
   _id: string;
   name: string;
@@ -11,6 +9,7 @@ export type Workout = {
 type Props = {
   isOpen: boolean;
   workouts: Workout[];
+  completedWorkouts: WorkoutProgress[];
   onClose: () => void;
   onSelect: (workoutId: string) => void;
 };
@@ -18,13 +17,20 @@ type Props = {
 export default function WorkoutSelectModal({
   isOpen,
   workouts,
+  completedWorkouts,
   onClose,
   onSelect,
 }: Props) {
-  const [selectedWorkout, setSelectedWorkout] = useState("");
-
   if (!isOpen) return null;
+  const nextWorkout = workouts.find((workout) => {
+    const progress = completedWorkouts.find(
+      (item) => item.workoutId === workout._id,
+    );
 
+    return !progress?.workoutCompleted;
+  });
+
+  const workoutToStart = nextWorkout ?? workouts[0];
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -34,28 +40,35 @@ export default function WorkoutSelectModal({
           <p>Нет тренировок</p>
         ) : (
           <div className={styles.list}>
-            {workouts.map((workout) => (
-              <label key={workout._id} className={styles.item}>
-                <input
-                  type="radio"
-                  name="workout"
-                  className={styles.radio}
-                  checked={selectedWorkout === workout._id}
-                  onChange={() => setSelectedWorkout(workout._id)}
-                />
+            {workouts.map((workout) => {
+              const completed = completedWorkouts.some(
+                (item) =>
+                  item.workoutId === workout._id && item.workoutCompleted,
+              );
 
-                <div className={styles.circle} />
-
-                <span className={styles.name}>{workout.name}</span>
-              </label>
-            ))}
+              return (
+                <div
+                  key={workout._id}
+                  className={styles.item}
+                  onClick={() => onSelect(workout._id)}
+                >
+                  {completed && <div className={styles.check}></div>}
+                  {!completed && <div className={styles.notCheck}></div>}
+                  <span className={styles.name}>{workout.name}</span>
+                </div>
+              );
+            })}
           </div>
         )}
 
         <button
           className={styles.startBtn}
-          disabled={!selectedWorkout}
-          onClick={() => onSelect(selectedWorkout)}
+          disabled={workouts.length === 0}
+          onClick={() => {
+            if (workoutToStart) {
+              onSelect(workoutToStart._id);
+            }
+          }}
         >
           Начать
         </button>

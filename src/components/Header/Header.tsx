@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import AuthModal from "../AuthModal/AuthModal";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import { getMe, logout } from "@/services/auth.service";
+import Link from "next/link";
 
 export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,7 +41,10 @@ export default function Header() {
       <header className={styles.header}>
         <div className={styles.header__wrapper}>
           <div className={styles.logoBlock}>
-            <Image src="/icon/logo.svg" alt="Logo" width={220} height={35} />
+            <Link href="/">
+              <Image src="/icon/logo.svg" alt="Logo" width={220} height={35} />
+            </Link>
+
             {!isAuth && (
               <p className={styles.logo_text}>
                 Онлайн-тренировки для занятий дома

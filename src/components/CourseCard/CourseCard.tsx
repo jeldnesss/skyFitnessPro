@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./CourseCard.module.css";
-import { CourseDetails } from "@/types/course";
+import { CourseDetails, WorkoutProgress } from "@/types/course";
 import Link from "next/link";
 import { useState } from "react";
 import { addCourseToUser } from "@/services/courses.service";
@@ -17,6 +17,7 @@ type Props = {
   image: string;
   variant?: "default" | "profile";
   progress?: number;
+  workoutsProgress?: WorkoutProgress[];
   onRemove?: (id: string) => void;
 };
 
@@ -25,6 +26,7 @@ export default function CourseCard({
   image,
   variant = "default",
   progress = 0,
+  workoutsProgress = [],
   onRemove,
 }: Props) {
   const [adding, setAdding] = useState(false);
@@ -195,6 +197,7 @@ export default function CourseCard({
       <WorkoutSelectModal
         isOpen={isModalOpen}
         workouts={workouts}
+        completedWorkouts={workoutsProgress}
         onClose={() => setIsModalOpen(false)}
         onSelect={handleSelectWorkout}
       />

@@ -127,6 +127,7 @@ export default function ProfilePage() {
               image={courseImages[index % courseImages.length]}
               variant="profile"
               progress={calculateCourseProgress(course.progress)}
+              workoutsProgress={course.progress}
               onRemove={handleRemoveCourse}
             />
           ))}

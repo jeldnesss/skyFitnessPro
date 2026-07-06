@@ -47,3 +47,8 @@
     gap: 16px;
 }
 
+@media (max-width: 480px){
+  .profile_name{
+    display: none;
+  }
+}
