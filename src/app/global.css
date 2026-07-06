@@ -41,3 +41,8 @@ img {
 .page__wrapper {
   padding: 0 140px;
 }
+@media (max-width: 760px){
+  .page__wrapper {
+  padding: 0 40px;
+}
+}

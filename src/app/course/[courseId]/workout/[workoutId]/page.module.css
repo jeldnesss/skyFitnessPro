@@ -43,7 +43,8 @@
   margin-bottom: 20px;
 }
 .item {
-  width: 320px;
+  width: 100%;
+  max-width: 320px;
 }
 .item_box {
   justify-content: start;
@@ -112,4 +113,71 @@
   height: 100%;
   background: #00c1ff;
   border-radius: 50px;
+}
+@media (max-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+  }
+
+  .courseTitle {
+    font-size: 42px;
+  }
+
+  .video {
+    height: 420px;
+  }
+
+  .exercises_block {
+    padding: 30px;
+  }
+}
+@media (max-width: 768px) {
+  .courseTitle {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .video {
+    height: 260px;
+    margin-bottom: 20px;
+  }
+
+  .exercises_block {
+    padding: 20px;
+  }
+
+  .workoutTitle {
+    font-size: 24px;
+  }
+
+  .list {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .item {
+    max-width: 100%;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .courseTitle {
+    font-size: 22px;
+  }
+
+  .video {
+    height: 200px;
+  }
+
+  .workoutTitle {
+    font-size: 20px;
+  }
+
+  .percent {
+    font-size: 16px;
+  }
 }
