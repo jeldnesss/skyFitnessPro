@@ -24,10 +24,9 @@ export default function Header() {
 
       try {
         const user = await getMe();
-        console.log(user);
+
         setUserEmail(user.user.email);
       } catch (error) {
-        console.error(error);
         setIsAuth(false);
         localStorage.removeItem("token");
       }

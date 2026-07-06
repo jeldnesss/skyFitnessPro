@@ -49,8 +49,7 @@ export default function AuthModal({ isOpen, onClose }: Props) {
     } catch (e) {
       if (e instanceof AxiosError) {
         setError(e.response?.data?.message || "Ошибка регистрации");
-        console.log("STATUS:", e.response?.status);
-        console.log("DATA:", e.response?.data);
+   
       } else {
         setError("Ошибка регистрации");
       }
@@ -87,6 +86,7 @@ export default function AuthModal({ isOpen, onClose }: Props) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        {error && <p className={styles.error}>{error}</p>}
 
         <div className={styles.buttons}>
           <button

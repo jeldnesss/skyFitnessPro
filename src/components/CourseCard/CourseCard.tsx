@@ -42,11 +42,15 @@ export default function CourseCard({
         alert("У курса пока нет тренировок");
         return;
       }
+      if (progress === 0 || progress === 100) {
+        router.push(`/course/${course._id}/workout/${data[0]._id}`);
+        return;
+      }
 
       setWorkouts(data);
       setIsModalOpen(true);
     } catch (error) {
-      console.error(error);
+
       alert("Не удалось загрузить тренировки");
     }
   };
@@ -93,6 +97,11 @@ export default function CourseCard({
     }
 
     alert("Курс удалён");
+  };
+  const getContinueText = (progress: number) => {
+    if (progress === 0) return "Начать тренировки";
+    if (progress === 100) return "Начать заново";
+    return "Продолжить";
   };
   return (
     <>
@@ -155,7 +164,7 @@ export default function CourseCard({
             )}
             {variant === "profile" && (
               <button className={styles.continueBtn} onClick={handleContinue}>
-                Продолжить
+                {getContinueText(progress)}
               </button>
             )}
           </div>

@@ -19,9 +19,7 @@ export default function HomePage() {
       try {
         const data = await getCourses();
         setCourses(data);
-        console.log(data);
       } catch (e) {
-        console.error(e);
       } finally {
         setLoading(false);
       }

@@ -43,13 +43,15 @@
   margin-bottom: 20px;
 }
 .item {
+  width: 320px;
+}
+.item_box {
   justify-content: start;
   display: flex;
   align-items: center;
-  width: 320px;
+
   gap: 8px;
 }
-
 .exerciseName {
   font-size: 20px;
   font-weight: 400;
@@ -88,4 +90,26 @@
 .empty {
   font-size: 18px;
   color: #777;
+}
+.exerciseName {
+  margin: 0 0 12px;
+  font-size: 20px;
+  line-height: 120%;
+}
+
+.progressBar {
+  border-radius: 50px;
+  width: 100%;
+  height: 6px;
+  margin-top: 12px;
+
+  background: #f7f7f7;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #00c1ff;
+  border-radius: 50px;
 }

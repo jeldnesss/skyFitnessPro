@@ -32,7 +32,7 @@ export default function CoursePage() {
         const data = await getCourseById(courseId);
         setCourse(data);
       } catch (error) {
-        console.error(error);
+        
       } finally {
         setLoading(false);
       }
@@ -58,7 +58,7 @@ export default function CoursePage() {
       setIsAdded(true);
       alert("Курс успешно добавлен!");
     } catch (error) {
-      console.error(error);
+     
       alert("Ошибка при добавлении курса");
     } finally {
       setAdding(false);
@@ -81,7 +81,7 @@ export default function CoursePage() {
         const data = await getCourseById(courseId);
         setCourse(data);
       } catch (error) {
-        console.error(error);
+     
       } finally {
         setLoading(false);
       }

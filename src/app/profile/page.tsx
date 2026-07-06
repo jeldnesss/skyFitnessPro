@@ -62,7 +62,7 @@ export default function ProfilePage() {
 
         setCourses(coursesData);
       } catch (error) {
-        console.error(error);
+
       } finally {
         setLoading(false);
       }
@@ -79,24 +79,21 @@ export default function ProfilePage() {
     progress: WorkoutProgress[],
     workouts: Workout[],
   ) => {
-    let done = 0;
-    let total = 0;
+    if (!workouts.length) return 0;
+
+    const percentPerWorkout = 100 / workouts.length;
+
+    let result = 0;
 
     workouts.forEach((workout) => {
-      workout.exercises.forEach((exercise) => {
-        total += exercise.quantity;
-      });
+      const workoutProgress = progress.find((p) => p.workoutId === workout._id);
+
+      if (workoutProgress?.workoutCompleted) {
+        result += percentPerWorkout;
+      }
     });
 
-    progress.forEach((w) => {
-      w.progressData.forEach((value) => {
-        done += value;
-      });
-    });
-
-    if (total === 0) return 0;
-
-    return Math.min(Math.round((done / total) * 100), 100);
+    return Math.min(Math.round(result), 100);
   };
   if (loading) return <p>Загрузка...</p>;
 

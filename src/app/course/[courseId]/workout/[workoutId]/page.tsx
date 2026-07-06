@@ -55,8 +55,7 @@ export default function WorkoutPage() {
           setLoading(false);
           return;
         }
-        console.log("WORKOUT:", workoutData);
-        console.log("EXERCISES:", workoutData.exercises);
+   
         const courseData = await getCourseById(courseId);
         setCourse(courseData);
         const workouts = await getCourseWorkouts(courseId);
@@ -66,8 +65,7 @@ export default function WorkoutPage() {
         if (index !== -1) {
           setWorkoutNumber(index + 1);
         }
-        console.log("courseId:", courseId);
-        console.log("workoutId:", workoutId);
+
         setWorkout(workoutData);
         try {
           const progressData = await getWorkoutProgress(courseId, workoutId);
@@ -81,7 +79,7 @@ export default function WorkoutPage() {
           setProgressInputs(empty);
         }
       } catch (e) {
-        console.error(e);
+       
       } finally {
         setLoading(false);
       }
@@ -103,7 +101,7 @@ export default function WorkoutPage() {
       setIsModalOpen(false);
       setIsSuccessModalOpen(true);
     } catch (error) {
-      console.error(error);
+  
       alert("Ошибка сохранения");
     }
   };
@@ -138,11 +136,20 @@ export default function WorkoutPage() {
 
                 return (
                   <div key={ex._id} className={styles.item}>
-                    <div>
-                      <p>{ex.name.replace(/\s*\(\d+\s*повторений\)/, "")}</p>
+                    <div className={styles.item_box}>
+                      <div>
+                        <p>{ex.name.replace(/\s*\(\d+\s*повторений\)/, "")}</p>
+                      </div>
+
+                      <div className={styles.percent}>{percent}%</div>
                     </div>
 
-                    <div className={styles.percent}>{percent}%</div>
+                    <div className={styles.progressBar}>
+                      <div
+                        className={styles.progressFill}
+                        style={{ width: `${percent}%` }}
+                      />
+                    </div>
                   </div>
                 );
               })
