@@ -42,15 +42,10 @@ export default function CourseCard({
         alert("У курса пока нет тренировок");
         return;
       }
-      if (progress === 0 || progress === 100) {
-        router.push(`/course/${course._id}/workout/${data[0]._id}`);
-        return;
-      }
 
       setWorkouts(data);
       setIsModalOpen(true);
     } catch (error) {
-
       alert("Не удалось загрузить тренировки");
     }
   };

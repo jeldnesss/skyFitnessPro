@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { getMe } from "@/services/auth.service";
-import { getCourseById, getCourseWorkouts } from "@/services/courses.service";
+import { getCourseById } from "@/services/courses.service";
 import { CourseDetails, WorkoutProgress } from "@/types/course";
 
 import styles from "./page.module.css";
 import CourseCard from "@/components/CourseCard/CourseCard";
 import { removeCourse } from "@/utils/course";
-import { getCourseProgress } from "@/services/progress.service";
+
 import Image from "next/image";
 const courseImages = [
   "/image 5.jpg",
@@ -20,6 +20,15 @@ const courseImages = [
 type User = {
   email: string;
   selectedCourses: string[];
+  courseProgress: {
+    courseId: string;
+    courseCompleted: boolean;
+    workoutsProgress: {
+      workoutId: string;
+      workoutCompleted: boolean;
+      progressData: number[];
+    }[];
+  }[];
 };
 type Workout = {
   _id: string;
@@ -33,7 +42,6 @@ type Workout = {
 };
 type CourseWithProgress = CourseDetails & {
   progress: WorkoutProgress[];
-  workouts: Workout[];
 };
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -50,19 +58,19 @@ export default function ProfilePage() {
         const coursesData = await Promise.all(
           userData.selectedCourses.map(async (id: string) => {
             const course = await getCourseById(id);
-            const progress = await getCourseProgress(id);
-            const workouts = await getCourseWorkouts(id);
+            const courseProgress = userData.courseProgress.find(
+              (p) => p.courseId === id,
+            );
+
             return {
               ...course,
-              progress: progress?.workoutsProgress ?? [],
-              workouts: workouts ?? [],
+              progress: courseProgress?.workoutsProgress ?? [],
             };
           }),
         );
 
         setCourses(coursesData);
       } catch (error) {
-
       } finally {
         setLoading(false);
       }
@@ -75,25 +83,12 @@ export default function ProfilePage() {
 
     setCourses((prev) => prev.filter((course) => course._id !== id));
   };
-  const calculateCourseProgress = (
-    progress: WorkoutProgress[],
-    workouts: Workout[],
-  ) => {
-    if (!workouts.length) return 0;
+  const calculateCourseProgress = (progress: WorkoutProgress[]) => {
+    if (!progress.length) return 0;
 
-    const percentPerWorkout = 100 / workouts.length;
+    const done = progress.filter((w) => w.workoutCompleted).length;
 
-    let result = 0;
-
-    workouts.forEach((workout) => {
-      const workoutProgress = progress.find((p) => p.workoutId === workout._id);
-
-      if (workoutProgress?.workoutCompleted) {
-        result += percentPerWorkout;
-      }
-    });
-
-    return Math.min(Math.round(result), 100);
+    return Math.round((done / progress.length) * 100);
   };
   if (loading) return <p>Загрузка...</p>;
 
@@ -131,10 +126,7 @@ export default function ProfilePage() {
               course={course}
               image={courseImages[index % courseImages.length]}
               variant="profile"
-              progress={calculateCourseProgress(
-                course.progress,
-                course.workouts,
-              )}
+              progress={calculateCourseProgress(course.progress)}
               onRemove={handleRemoveCourse}
             />
           ))}
