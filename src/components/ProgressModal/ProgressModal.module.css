@@ -16,8 +16,12 @@
   padding: 40px;
   width: 426px;
   height: 595px;
+
   box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
   background: #fff;
+
+  display: flex;
+  flex-direction: column;
 
   overflow: hidden;
 }
@@ -35,7 +39,12 @@
   line-height: 110%;
   color: #000;
 }
-
+.list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 24px;
+  padding-right: 8px;
+}
 .row {
   display: flex;
   flex-direction: column;
@@ -114,4 +123,17 @@
 
 .buttons button:first-child {
   display: none;
+}
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 99px;
+  height: 116px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
 }

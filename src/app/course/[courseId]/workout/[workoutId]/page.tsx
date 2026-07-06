@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
 import {
+  getCourseWorkouts,
   getWorkoutById,
   saveWorkoutProgress,
 } from "@/services/workouts.service";
@@ -12,6 +13,7 @@ import {
 import styles from "./page.module.css";
 import ProgressModal from "@/components/ProgressModal/ProgressModal";
 import { getWorkoutProgress } from "@/services/progress.service";
+import SuccessModal from "@/components/SuccessModal/SuccessModal";
 
 type Workout = {
   _id: string;
@@ -34,6 +36,8 @@ export default function WorkoutPage() {
   const [progress, setProgress] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [workoutNumber, setWorkoutNumber] = useState<number>(1);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   const [progressInputs, setProgressInputs] = useState<number[]>([]);
   useEffect(() => {
@@ -55,6 +59,13 @@ export default function WorkoutPage() {
         console.log("EXERCISES:", workoutData.exercises);
         const courseData = await getCourseById(courseId);
         setCourse(courseData);
+        const workouts = await getCourseWorkouts(courseId);
+
+        const index = workouts.findIndex((w) => w._id === workoutId);
+
+        if (index !== -1) {
+          setWorkoutNumber(index + 1);
+        }
         console.log("courseId:", courseId);
         console.log("workoutId:", workoutId);
         setWorkout(workoutData);
@@ -89,7 +100,8 @@ export default function WorkoutPage() {
 
       setIsModalOpen(false);
 
-      alert("Прогресс сохранён");
+      setIsModalOpen(false);
+      setIsSuccessModalOpen(true);
     } catch (error) {
       console.error(error);
       alert("Ошибка сохранения");
@@ -108,7 +120,9 @@ export default function WorkoutPage() {
         </div>
 
         <div className={styles.exercises_block}>
-          <h2>Упражнения</h2>
+          <h2 className={styles.workoutTitle}>
+            Упражнения тренировки {workoutNumber}
+          </h2>
 
           <div className={styles.list}>
             {Array.isArray(workout.exercises) &&
@@ -125,7 +139,7 @@ export default function WorkoutPage() {
                 return (
                   <div key={ex._id} className={styles.item}>
                     <div>
-                      <p>{ex.name}</p>
+                      <p>{ex.name.replace(/\s*\(\d+\s*повторений\)/, "")}</p>
                     </div>
 
                     <div className={styles.percent}>{percent}%</div>
@@ -158,6 +172,10 @@ export default function WorkoutPage() {
         }}
         onClose={() => setIsModalOpen(false)}
         onSave={handleSave}
+      />
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
       />
     </>
   );

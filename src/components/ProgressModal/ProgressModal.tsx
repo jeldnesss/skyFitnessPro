@@ -28,31 +28,33 @@ export default function ProgressModal({
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <h2>Заполнить прогресс</h2>
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <h2>Мой прогресс</h2>
 
-        {exercises.map((exercise, index) => (
-          <div key={exercise._id} className={styles.row}>
-            <p className={styles.exName}>{exercise.name}</p>
+        <div className={styles.list}>
+          {exercises.map((exercise, index) => (
+            <div key={exercise._id} className={styles.row}>
+              <p className={styles.exName}>{exercise.name}</p>
 
-            <input
-              type="number"
-              min={0}
-              value={values[index]}
-              onChange={(e) => {
-                let val = Number(e.target.value);
+              <input
+                type="number"
+                min={0}
+                value={values[index] ?? 0}
+                onChange={(e) => {
+                  let val = Number(e.target.value);
 
-                if (isNaN(val)) val = 0;
-                if (val < 0) val = 0;
+                  if (isNaN(val)) val = 0;
+                  if (val < 0) val = 0;
 
-                if (val > exercise.quantity) val = exercise.quantity;
+                  if (val > exercise.quantity) val = exercise.quantity;
 
-                onChange(index, val);
-              }}
-            />
-          </div>
-        ))}
+                  onChange(index, val);
+                }}
+              />
+            </div>
+          ))}
+        </div>
 
         <div className={styles.buttons}>
           <button onClick={onClose}>Отмена</button>

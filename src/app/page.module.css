@@ -31,3 +31,19 @@
   flex-wrap: wrap;
   gap: 40px;
 }
+.scrollTop {
+  margin: 34px auto;
+  
+  border-radius: 46px;
+  padding: 16px 26px;
+  width: 128px;
+  height: 52px;
+  background: #bcec30;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  text-align: center;
+  color: #000;
+}
+
+

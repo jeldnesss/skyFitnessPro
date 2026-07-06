@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getMe } from "@/services/auth.service";
-import { getCourseById } from "@/services/courses.service";
+import { getCourseById, getCourseWorkouts } from "@/services/courses.service";
 import { CourseDetails, WorkoutProgress } from "@/types/course";
 
 import styles from "./page.module.css";
@@ -21,8 +21,19 @@ type User = {
   email: string;
   selectedCourses: string[];
 };
+type Workout = {
+  _id: string;
+  name: string;
+  video: string;
+  exercises: {
+    _id: string;
+    name: string;
+    quantity: number;
+  }[];
+};
 type CourseWithProgress = CourseDetails & {
   progress: WorkoutProgress[];
+  workouts: Workout[];
 };
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -40,10 +51,11 @@ export default function ProfilePage() {
           userData.selectedCourses.map(async (id: string) => {
             const course = await getCourseById(id);
             const progress = await getCourseProgress(id);
-
+            const workouts = await getCourseWorkouts(id);
             return {
               ...course,
               progress: progress?.workoutsProgress ?? [],
+              workouts: workouts ?? [],
             };
           }),
         );
@@ -63,24 +75,28 @@ export default function ProfilePage() {
 
     setCourses((prev) => prev.filter((course) => course._id !== id));
   };
-  const calculateCourseProgressFromProgress = (
-    progress: WorkoutProgress[] = [],
+  const calculateCourseProgress = (
+    progress: WorkoutProgress[],
+    workouts: Workout[],
   ) => {
-    if (!progress.length) return 0;
-
+    let done = 0;
     let total = 0;
-    let max = 0;
 
-    progress.forEach((w) => {
-      w.progressData?.forEach((value) => {
-        total += value;
-        max += 100;
+    workouts.forEach((workout) => {
+      workout.exercises.forEach((exercise) => {
+        total += exercise.quantity;
       });
     });
 
-    if (max === 0) return 0;
+    progress.forEach((w) => {
+      w.progressData.forEach((value) => {
+        done += value;
+      });
+    });
 
-    return Math.min(Math.round((total / max) * 100), 100);
+    if (total === 0) return 0;
+
+    return Math.min(Math.round((done / total) * 100), 100);
   };
   if (loading) return <p>Загрузка...</p>;
 
@@ -118,7 +134,10 @@ export default function ProfilePage() {
               course={course}
               image={courseImages[index % courseImages.length]}
               variant="profile"
-              progress={calculateCourseProgressFromProgress(course.progress)}
+              progress={calculateCourseProgress(
+                course.progress,
+                course.workouts,
+              )}
               onRemove={handleRemoveCourse}
             />
           ))}

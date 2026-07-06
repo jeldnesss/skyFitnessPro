@@ -29,6 +29,12 @@ export default function HomePage() {
 
     loadCourses();
   }, []);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <main className={styles.main}>
       <div className={styles.main__title_wrapper}>
@@ -52,6 +58,9 @@ export default function HomePage() {
           />
         ))}
       </div>
+      <button className={styles.scrollTop} onClick={scrollToTop}>
+        Наверх ↑
+      </button>
     </main>
   );
 }

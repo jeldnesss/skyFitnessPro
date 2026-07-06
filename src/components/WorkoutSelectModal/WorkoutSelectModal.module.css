@@ -114,3 +114,16 @@
   line-height: 110%;
   color: #000;
 }
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 99px;
+  height: 116px !important;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}

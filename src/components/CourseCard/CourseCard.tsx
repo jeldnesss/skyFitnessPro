@@ -10,6 +10,7 @@ import { removeCourse } from "@/utils/course";
 import { useRouter } from "next/navigation";
 import { getCourseWorkouts } from "@/services/workouts.service";
 import WorkoutSelectModal from "../WorkoutSelectModal/WorkoutSelectModal";
+import { Workout } from "@/types/workouts";
 
 type Props = {
   course: CourseDetails;
@@ -28,7 +29,7 @@ export default function CourseCard({
 }: Props) {
   const [adding, setAdding] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [workouts, setWorkouts] = useState<any[]>([]);
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
   const router = useRouter();
   const handleContinue = async (e: React.MouseEvent) => {
     e.preventDefault();

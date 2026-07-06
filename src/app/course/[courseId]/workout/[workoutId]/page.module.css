@@ -35,11 +35,18 @@
 
   margin-bottom: 40px;
 }
-
+.workoutTitle {
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 110%;
+  color: #000;
+  margin-bottom: 20px;
+}
 .item {
+  justify-content: start;
   display: flex;
   align-items: center;
-
+  width: 320px;
   gap: 8px;
 }
 
