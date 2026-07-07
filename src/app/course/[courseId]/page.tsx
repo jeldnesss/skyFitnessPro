@@ -20,7 +20,7 @@ export default function CoursePage() {
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-  
+  const [error, setError] = useState("");
   useEffect(() => {
     const loadCourse = async () => {
       if (!courseId) return;
@@ -32,7 +32,7 @@ export default function CoursePage() {
         const data = await getCourseById(courseId);
         setCourse(data);
       } catch (error) {
-        
+        setError("Не удалось загрузить информацию о курсе.");
       } finally {
         setLoading(false);
       }
@@ -58,7 +58,6 @@ export default function CoursePage() {
       setIsAdded(true);
       alert("Курс успешно добавлен!");
     } catch (error) {
-     
       alert("Ошибка при добавлении курса");
     } finally {
       setAdding(false);
@@ -73,25 +72,11 @@ export default function CoursePage() {
     handleAddCourse();
   };
 
-  useEffect(() => {
-    const loadCourse = async () => {
-      if (!courseId) return;
-
-      try {
-        const data = await getCourseById(courseId);
-        setCourse(data);
-      } catch (error) {
-     
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadCourse();
-  }, [courseId ]);
-
   if (loading) {
     return <p>Загрузка...</p>;
+  }
+  if (error) {
+    return <p>{error}</p>;
   }
 
   if (!course) {

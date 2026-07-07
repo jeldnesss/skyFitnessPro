@@ -38,6 +38,7 @@ export default function WorkoutPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [workoutNumber, setWorkoutNumber] = useState<number>(1);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [error, setError] = useState("");
 
   const [progressInputs, setProgressInputs] = useState<number[]>([]);
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function WorkoutPage() {
           setLoading(false);
           return;
         }
-   
+
         const courseData = await getCourseById(courseId);
         setCourse(courseData);
         const workouts = await getCourseWorkouts(courseId);
@@ -70,16 +71,20 @@ export default function WorkoutPage() {
         try {
           const progressData = await getWorkoutProgress(courseId, workoutId);
 
-          setProgress(progressData?.progressData ?? []);
-          setProgressInputs(progressData?.progressData ?? []);
+          const savedProgress =
+            progressData?.progressData ??
+            new Array(workoutData.exercises.length).fill(0);
+
+          setProgress(savedProgress);
+          setProgressInputs(savedProgress);
         } catch {
-          const empty = new Array(workoutData.exercises?.length ?? 0).fill(0);
+          const empty = new Array(workoutData.exercises.length).fill(0);
 
           setProgress(empty);
           setProgressInputs(empty);
         }
-      } catch (e) {
-       
+      } catch (error) {
+        setError("Не удалось загрузить тренировку.");
       } finally {
         setLoading(false);
       }
@@ -89,6 +94,9 @@ export default function WorkoutPage() {
   }, [workoutId, courseId]);
 
   if (loading) return <p>Загрузка...</p>;
+  if (error) {
+    return <p>{error}</p>;
+  }
   if (!workout) return <p>Урок не найден</p>;
   const handleSave = async () => {
     try {
@@ -101,7 +109,6 @@ export default function WorkoutPage() {
       setIsModalOpen(false);
       setIsSuccessModalOpen(true);
     } catch (error) {
-  
       alert("Ошибка сохранения");
     }
   };

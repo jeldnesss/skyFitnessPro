@@ -11,13 +11,7 @@ import { removeCourse } from "@/utils/course";
 
 import Image from "next/image";
 import { getCourseWorkouts } from "@/services/workouts.service";
-const courseImages = [
-  "/image 5.jpg",
-  "/image 6.jpg",
-  "/image 7.jpg",
-  "/image 8.jpg",
-  "/image 9.jpg",
-];
+import { courseImages, defaultCourseImage } from "@/constants/courseImages";
 type User = {
   email: string;
   selectedCourses: string[];
@@ -49,6 +43,7 @@ export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState<CourseWithProgress[]>([]);
+  const [error, setError] = useState("");
   useEffect(() => {
     const loadProfile = async () => {
       try {
@@ -75,6 +70,7 @@ export default function ProfilePage() {
 
         setCourses(coursesData);
       } catch (error) {
+        setError("Не удалось загрузить профиль.");
       } finally {
         setLoading(false);
       }
@@ -98,7 +94,9 @@ export default function ProfilePage() {
     return Math.round((done / workoutsCount) * 100);
   };
   if (loading) return <p>Загрузка...</p>;
-
+  if (error) {
+    return <p>{error}</p>;
+  }
   if (!user) return <p>Нет данных пользователя</p>;
 
   return (
@@ -114,7 +112,7 @@ export default function ProfilePage() {
           alt="profile"
         ></Image>
         <div className={styles.profileInfoText}>
-          <h3 className={styles.profileName}>Сергей</h3>
+          <h3 className={styles.profileName}>Вы</h3>
 
           <p className={styles.email}>Логин: {user.email}</p>
           <button className={styles.profileButton}>Выйти</button>
@@ -131,7 +129,7 @@ export default function ProfilePage() {
             <CourseCard
               key={course._id}
               course={course}
-              image={courseImages[index % courseImages.length]}
+              image={courseImages[course._id] ?? defaultCourseImage}
               variant="profile"
               progress={calculateCourseProgress(
                 course.progress,

@@ -25,32 +25,43 @@
   margin-bottom: 60px;
 }
 .fitting {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
+
 .fittingCard {
   border-radius: 28px;
-  padding: 20px;
-  width: 368px;
-  height: 141px;
+  padding: 28px 24px;
   background: linear-gradient(152deg, #151720 0%, #1e212e 100%);
+
   display: flex;
-  gap: 25px;
-  align-items: center;
+  gap: 24px;
+  align-items: flex-start;
+
+  min-height: 141px;
+  height: auto;
 }
+
 .fitting_index {
   font-weight: 500;
   font-size: 75px;
-  line-height: 135%;
+  line-height: 1;
   color: #bcec30;
+
+  flex-shrink: 0;
+  min-width: 60px;
+  margin: 0;
 }
+
 .fitting_name {
   font-weight: 400;
   font-size: 24px;
-  line-height: 110%;
+  line-height: 1.2;
   color: #fff;
+
+  margin: 0;
+  padding-top: 6px;
 }
 .direction_block {
   border-radius: 28px;
@@ -154,12 +165,23 @@
   }
 
   .fitting {
-    justify-content: center;
     gap: 20px;
   }
 
   .fittingCard {
-    width: 320px;
+    padding: 24px 20px;
+    min-height: 130px;
+    gap: 14px;
+  }
+
+  .fitting_index {
+    font-size: 45px;
+    min-width: 50px;
+  }
+
+  .fitting_name {
+    font-size: 20px;
+    padding-top: 4px;
   }
 
   .list {
@@ -184,6 +206,29 @@
     height: auto;
   }
 }
+@media (max-width: 970px) {
+  .fitting {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .fittingCard {
+    padding: 20px 18px;
+    min-height: 100px;
+    gap: 18px;
+    border-radius: 22px;
+  }
+
+  .fitting_index {
+    font-size: 48px;
+    min-width: 42px;
+  }
+
+  .fitting_name {
+    font-size: 18px;
+    padding-top: 2px;
+  }
+}
 
 @media (max-width: 768px) {
   .banner {
@@ -201,22 +246,25 @@
   }
 
   .fitting {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .fittingCard {
-    width: 100%;
-    max-width: 340px;
-    height: auto;
+    padding: 20px 18px;
+    min-height: 100px;
+    gap: 18px;
+    border-radius: 22px;
   }
 
   .fitting_index {
     font-size: 48px;
+    min-width: 42px;
   }
 
   .fitting_name {
     font-size: 18px;
+    padding-top: 2px;
   }
 
   .list {
@@ -265,12 +313,22 @@
     font-size: 20px;
   }
 
+  .fittingCard {
+    padding: 16px 14px;
+    gap: 14px;
+    min-height: 80px;
+    border-radius: 18px;
+  }
+
   .fitting_index {
     font-size: 36px;
+    min-width: 34px;
   }
 
   .fitting_name {
     font-size: 16px;
+    line-height: 1.15;
+    padding-top: 0;
   }
 
   .add_title {

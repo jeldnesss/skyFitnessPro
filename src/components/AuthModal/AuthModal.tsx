@@ -16,7 +16,21 @@ export default function AuthModal({ isOpen, onClose }: Props) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const validateFields = () => {
+    if (!email.trim() || !password.trim()) {
+      setError("Заполните все поля");
+      return false;
+    }
+
+    if (password.length < 6) {
+      setError("Пароль должен содержать минимум 6 символов");
+      return false;
+    }
+
+    return true;
+  };
   const handleLogin = async () => {
+    if (!validateFields()) return;
     try {
       setLoading(true);
       setError(null);
@@ -37,6 +51,7 @@ export default function AuthModal({ isOpen, onClose }: Props) {
   };
 
   const handleRegister = async () => {
+    if (!validateFields()) return;
     try {
       setLoading(true);
       setError(null);
@@ -49,7 +64,6 @@ export default function AuthModal({ isOpen, onClose }: Props) {
     } catch (e) {
       if (e instanceof AxiosError) {
         setError(e.response?.data?.message || "Ошибка регистрации");
-   
       } else {
         setError("Ошибка регистрации");
       }

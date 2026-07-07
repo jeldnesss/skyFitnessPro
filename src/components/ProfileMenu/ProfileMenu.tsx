@@ -26,7 +26,7 @@ export default function ProfileMenu({
 
       <div className={styles.menu}>
         <div className={styles.profile_names}>
-          <p className={styles.name}>Сергей</p>
+          <p className={styles.name}>Вы</p>
           <p className={styles.email}>{email}</p>
         </div>
         <div className={styles.button_wrapper}>

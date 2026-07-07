@@ -12,7 +12,7 @@
   border-radius: 30px;
   padding: 40px;
   width: 360px;
-  height: 425px;
+  min-height: 425px;
   box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
   background-color: #fff;
   position: relative;

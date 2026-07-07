@@ -4,22 +4,19 @@ import { useEffect, useState } from "react";
 import { getCourses } from "@/services/courses.service";
 import { Course } from "@/types/course";
 import CourseCard from "@/components/CourseCard/CourseCard";
-const courseImages = [
-  "/image 5.jpg",
-  "/image 6.jpg",
-  "/image 7.jpg",
-  "/image 8.jpg",
-  "/image 9.jpg",
-];
+import { courseImages, defaultCourseImage } from "@/constants/courseImages";
 export default function HomePage() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   useEffect(() => {
     const loadCourses = async () => {
       try {
         const data = await getCourses();
+
         setCourses(data);
-      } catch (e) {
+      } catch (error) {
+        setError("Не удалось загрузить курсы");
       } finally {
         setLoading(false);
       }
@@ -33,6 +30,9 @@ export default function HomePage() {
       behavior: "smooth",
     });
   };
+  if (loading) return <p>Загрузка...</p>;
+
+  if (error) return <p>{error}</p>;
   return (
     <main className={styles.main}>
       <div className={styles.main__title_wrapper}>
@@ -52,7 +52,7 @@ export default function HomePage() {
           <CourseCard
             key={course._id}
             course={course}
-            image={courseImages[index % courseImages.length]}
+            image={courseImages[course._id] ?? defaultCourseImage}
           />
         ))}
       </div>

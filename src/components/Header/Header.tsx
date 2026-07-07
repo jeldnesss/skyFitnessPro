@@ -65,7 +65,7 @@ export default function Header() {
                   className={styles.profile_wrapper}
                   onClick={() => setIsProfileOpen((prev) => !prev)}
                 >
-                  <p className={styles.profile_name}>Сергей</p>
+                  <p className={styles.profile_name}>Вы</p>
                   <Image
                     src="/icon/open.svg"
                     alt="стрелка"

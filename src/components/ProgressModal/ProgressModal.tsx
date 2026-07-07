@@ -40,16 +40,12 @@ export default function ProgressModal({
               <input
                 type="number"
                 min={0}
-                value={values[index] ?? 0}
+                max={exercise.quantity}
+                value={values[index] ?? ""}
                 onChange={(e) => {
-                  let val = Number(e.target.value);
+                  const val = Number(e.target.value);
 
-                  if (isNaN(val)) val = 0;
-                  if (val < 0) val = 0;
-
-                  if (val > exercise.quantity) val = exercise.quantity;
-
-                  onChange(index, val);
+                  onChange(index, Number.isNaN(val) ? 0 : val);
                 }}
               />
             </div>
