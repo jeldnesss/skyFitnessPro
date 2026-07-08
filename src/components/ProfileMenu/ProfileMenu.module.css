@@ -1,0 +1,64 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+}
+
+.menu {
+  position: absolute;
+  top: 90px;
+  right: 80px;
+
+  border-radius: 30px;
+  padding: 30px;
+  width: 266px;
+  height: 258px;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: #fff;
+  z-index: 10;
+}
+.profile_names {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 34px;
+}
+.name {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+}
+.email {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #999;
+}
+.button_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.button,
+.logout {
+  border-radius: 46px;
+  padding: 16px 26px;
+  width: 100%;
+  height: 52px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+}
+
+.button {
+  background-color: #bcec30;
+}
+
+.logout {
+  background: transparent;
+  border: 1px solid #000;
+}

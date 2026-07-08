@@ -1,0 +1,109 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  border-radius: 30px;
+  padding: 40px;
+  width: 460px;
+  height: 609px;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: #fff;
+}
+
+.title {
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 110%;
+  color: #000;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.list {
+  overflow-y: auto;
+  max-height: 360px;
+
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 34px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #ddd;
+
+  cursor: pointer;
+}
+
+
+
+.closeBtn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+
+.check {
+  width: 24px;
+  height: 24px;
+  background-image: url(/icon/check.svg);
+
+}
+.notCheck{
+  width: 24px;
+  height: 24px;
+  border: 1px #000 solid;
+  border-radius: 50px;
+}
+
+.name {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 110%;
+  color: #000;
+  display: inline-block;
+  max-width: 320px;
+
+}
+
+.startBtn {
+  border-radius: 46px;
+  padding: 16px 26px;
+  width: 380px;
+  height: 52px;
+  background: #bcec30;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #000;
+}
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 99px;
+  height: 116px !important;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}

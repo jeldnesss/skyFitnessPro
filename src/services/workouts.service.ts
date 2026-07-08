@@ -1,24 +1,20 @@
 import { api } from "@/lib/api";
-
-export const getWorkoutById = async (workoutId: string) => {
-  const { data } = await api.get(`/workouts/${workoutId}`);
-  return data;
+import { ApiMessage } from "@/types/api";
+import { Workout } from "@/types/workouts";
+export type WorkoutProgress = {
+  workoutId: string;
+  workoutCompleted: boolean;
+  progressData: number[];
 };
-
-export const getCourseProgress = async (courseId: string) => {
-  const { data } = await api.get(`/users/me/progress?courseId=${courseId}`);
-
-  return data;
-};
-
-export const getWorkoutProgress = async (
+export const getCourseWorkouts = async (
   courseId: string,
-  workoutId: string,
-) => {
-  const { data } = await api.get(
-    `/users/me/progress?courseId=${courseId}&workoutId=${workoutId}`,
-  );
+): Promise<Workout[]> => {
+  const { data } = await api.get<Workout[]>(`/courses/${courseId}/workouts`);
+  return data;
+};
 
+export const getWorkoutById = async (workoutId: string): Promise<Workout> => {
+  const { data } = await api.get<Workout>(`/workouts/${workoutId}`);
   return data;
 };
 
@@ -26,8 +22,8 @@ export const saveWorkoutProgress = async (
   courseId: string,
   workoutId: string,
   progressData: number[],
-) => {
-  const { data } = await api.patch(
+): Promise<ApiMessage> => {
+  const { data } = await api.patch<ApiMessage>(
     `/courses/${courseId}/workouts/${workoutId}`,
     {
       progressData,
@@ -40,9 +36,19 @@ export const saveWorkoutProgress = async (
 export const resetWorkoutProgress = async (
   courseId: string,
   workoutId: string,
-) => {
-  const { data } = await api.patch(
+): Promise<ApiMessage> => {
+  const { data } = await api.patch<ApiMessage>(
     `/courses/${courseId}/workouts/${workoutId}/reset`,
+  );
+
+  return data;
+};
+export const getWorkoutProgress = async (
+  courseId: string,
+  workoutId: string,
+): Promise<WorkoutProgress> => {
+  const { data } = await api.get<WorkoutProgress>(
+    `/users/me/progress?courseId=${courseId}&workoutId=${workoutId}`,
   );
 
   return data;
